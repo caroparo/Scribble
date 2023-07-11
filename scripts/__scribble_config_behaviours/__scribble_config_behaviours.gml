@@ -45,6 +45,8 @@
 #macro SCRIBBLE_SHOW_WRAP_BOUNDARY        false    //Controls the drawing of a rectangle that indicates the boundaries of the .wrap(), .fit_to_box(), and .scale_to_box() methods
 #macro SCRIBBLE_ATTEMPT_FONT_SCALING_FIX  true     //Whether to try to fix font scaling due to the font texture being too big for the texture page
 
+#macro SCRIBBLE_LINE_SPACING_MULTIPLY     true     //Whether to interpret line_spacing numbers as multiply em or add px
+
 #endregion
 
 

@@ -70,7 +70,7 @@ function __scribble_class_element(_string, _unique_id) constructor
     
     __line_height_min = -1;
     __line_height_max = -1;
-    __line_spacing  = "100%";
+    __line_spacing  = SCRIBBLE_LINE_SPACING_MULTIPLY ? 1 : "100%";
     
     __page = 0;
     __ignore_command_tags = false;
@@ -109,6 +109,7 @@ function __scribble_class_element(_string, _unique_id) constructor
     __msdf_border_colour    = c_black;
     __msdf_border_thickness = 0.0;
     
+    __msdf_double_draw = false;
     __msdf_feather_thickness = 1.0;
     
     __bidi_hint = undefined;
@@ -192,7 +193,7 @@ function __scribble_class_element(_string, _unique_id) constructor
         matrix_set(matrix_world, _matrix);
         
         //Submit the model
-        _model.__submit(__page, __msdf_feather_thickness, (__msdf_border_thickness > 0) || (__msdf_shadow_alpha > 0));
+        _model.__submit(__page, __msdf_feather_thickness, (__msdf_border_thickness > 0) || (__msdf_shadow_alpha > 0), __msdf_double_draw);
         
         //Make sure we reset the world matrix
         matrix_set(matrix_world, _old_matrix);
@@ -1127,6 +1128,13 @@ function __scribble_class_element(_string, _unique_id) constructor
     static msdf_feather = function(_thickness)
     {
         __msdf_feather_thickness = _thickness;
+        
+        return self;
+    }
+    
+    static msdf_double_draw = function(_double_draw)
+    {
+        __msdf_double_draw = _double_draw;
         
         return self;
     }

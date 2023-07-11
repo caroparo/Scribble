@@ -58,13 +58,13 @@ function __scribble_class_model(_element, _model_cache_name) constructor
     
     
     
-    static __submit = function(_page, _msdf_feather_thickness, _double_draw)
+    static __submit = function(_page, _msdf_feather_thickness, _double_draw, _msdf_double_draw = false)
     {
         if (__flushed) return undefined;
         
         __last_drawn = current_time;
         
-        __pages_array[_page].__submit(_msdf_feather_thickness, (__has_arabic || __has_thai || SCRIBBLE_ALWAYS_DOUBLE_DRAW) && _double_draw);
+        __pages_array[_page].__submit(_msdf_feather_thickness, (_msdf_double_draw || __has_arabic || __has_thai || SCRIBBLE_ALWAYS_DOUBLE_DRAW) && _double_draw);
     }
     
     static __freeze = function()
@@ -329,7 +329,7 @@ function __scribble_class_model(_element, _model_cache_name) constructor
     
     if (SCRIBBLE_VERBOSE)
     {
-        var _elapsed = (get_timer() - _timer_total)/1000;
-        __scribble_trace("__scribble_class_model() took ", _elapsed, "ms");
+        //var _elapsed = (get_timer() - _timer_total)/1000;
+        //__scribble_trace("__scribble_class_model() took ", _elapsed, "ms");
     }
 }

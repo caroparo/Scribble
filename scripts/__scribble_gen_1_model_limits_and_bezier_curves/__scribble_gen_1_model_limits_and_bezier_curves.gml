@@ -92,8 +92,8 @@ function __scribble_gen_1_model_limits_and_bezier_curves()
     }
     else
     {
-        var _line_spacing_add      = _line_spacing_raw;
-        var _line_spacing_multiply = 0;
+        var _line_spacing_add      = SCRIBBLE_LINE_SPACING_MULTIPLY ? 0 : _line_spacing_raw;
+        var _line_spacing_multiply = SCRIBBLE_LINE_SPACING_MULTIPLY ? _line_spacing_raw : 0;
     }
     
     with(global.__scribble_generator_state)

@@ -29,7 +29,7 @@ function __scribble_class_page() constructor
     __events = {};
     __region_array = [];
     
-    static __submit = function(_msdf_feather_thickness, _double_draw)
+    static __submit = function(_msdf_feather_thickness, _double_draw = false)
     {
         if (SCRIBBLE_INCREMENTAL_FREEZE && !__frozen && (current_time - __created_time > __SCRIBBLE_EXPECTED_FRAME_TIME)) __freeze();
         
@@ -50,7 +50,8 @@ function __scribble_class_page() constructor
             {
                 //Force texture filtering when using MSDF fonts
                 var _old_tex_filter = gpu_get_tex_filter();
-                gpu_set_tex_filter(_bilinear);
+                if (_old_tex_filter != _bilinear) gpu_set_tex_filter(_bilinear);
+                else _old_tex_filter = undefined;
             }
             
             if (_shader == __shd_scribble_msdf)
@@ -75,7 +76,7 @@ function __scribble_class_page() constructor
                 vertex_submit(_data[__SCRIBBLE_VERTEX_BUFFER.__VERTEX_BUFFER], pr_trianglelist, _data[__SCRIBBLE_VERTEX_BUFFER.__TEXTURE]);
             }
             
-            if (_bilinear != undefined)
+            if (_old_tex_filter != undefined)
             {
                 //Reset the texture filtering
                 gpu_set_tex_filter(_old_tex_filter);
@@ -105,10 +106,7 @@ function __scribble_class_page() constructor
             
             __frozen = true;
             
-            if (SCRIBBLE_VERBOSE)
-            {
-                __scribble_trace("Incrementally froze page vertex buffers, time taken = ", (get_timer() - _t)/1000);
-            }
+            //if (SCRIBBLE_VERBOSE) __scribble_trace("Incrementally froze page vertex buffers, time taken = ", (get_timer() - _t)/1000);
         }
     }
     

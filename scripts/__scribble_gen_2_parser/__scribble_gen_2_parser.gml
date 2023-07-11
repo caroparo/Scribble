@@ -235,20 +235,20 @@ function __scribble_gen_2_parser()
         // Only do the following tests if the first byte is large enough (the MSB is 1)
         if ((_glyph_ord & $E0) == $C0) //110xxxxx 10xxxxxx
         {
-            _glyph_ord = ((_glyph_ord & $1F) << 6) | (buffer_read(_string_buffer, buffer_u8) & $3F);
+            _glyph_ord = real(((_glyph_ord & $1F) << 6) | (buffer_read(_string_buffer, buffer_u8) & $3F));
         }
         else if ((_glyph_ord & $F0) == $E0) //1110xxxx 10xxxxxx 10xxxxxx
         {
             var _glyph_ord_b = buffer_read(_string_buffer, buffer_u8);
             var _glyph_ord_c = buffer_read(_string_buffer, buffer_u8);
-            _glyph_ord = ((_glyph_ord & $0F) << 12) | ((_glyph_ord_b & $3F) <<  6) | (_glyph_ord_c & $3F);
+            _glyph_ord = real(((_glyph_ord & $0F) << 12) | ((_glyph_ord_b & $3F) <<  6) | (_glyph_ord_c & $3F));
         }
         else if ((_glyph_ord & $F8) == $F0) //11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
         {
             var _glyph_ord_b = buffer_read(_string_buffer, buffer_u8);
             var _glyph_ord_c = buffer_read(_string_buffer, buffer_u8);
             var _glyph_ord_d = buffer_read(_string_buffer, buffer_u8);
-            _glyph_ord = ((_glyph_ord & $07) << 18) | ((_glyph_ord_b & $3F) << 12) | ((_glyph_ord_c & $3F) <<  6) | (_glyph_ord_d & $3F);
+            _glyph_ord = real(((_glyph_ord & $07) << 18) | ((_glyph_ord_b & $3F) << 12) | ((_glyph_ord_c & $3F) <<  6) | (_glyph_ord_d & $3F));
         }
         else if (SCRIBBLE_FIX_ESCAPED_NEWLINES)
         {

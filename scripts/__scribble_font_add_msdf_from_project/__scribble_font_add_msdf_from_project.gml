@@ -55,6 +55,11 @@ function __scribble_font_add_msdf_from_project(_sprite)
     var _em_size      = _atlas_map[? "size"         ];
     var _msdf_pxrange = _atlas_map[? "distanceRange"];
     
+	if (SCRIBBLE_VERBOSE) {
+		_metrics_map[? "size"] = _em_size;
+		_metrics_map[? "distanceRange"] = _msdf_pxrange;
+		__scribble_trace("\"" + _name + "\" metrics: \n" + json_encode(_metrics_map));
+	}
     var _json_line_height = _em_size*_metrics_map[? "lineHeight"];
     
     var _size = ds_list_size(_json_glyph_list);
